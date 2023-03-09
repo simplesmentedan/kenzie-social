@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Publicacao",
+            name="Comentario",
             fields=[
                 (
                     "id",
@@ -21,17 +21,8 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("title", models.CharField(max_length=200)),
-                ("content", models.TextField()),
                 ("created_date", models.DateField(auto_now_add=True)),
-                (
-                    "post_type",
-                    models.CharField(
-                        choices=[("public", "Public"), ("private", "Private")],
-                        default="public",
-                        max_length=50,
-                    ),
-                ),
+                ("content", models.TextField()),
             ],
         ),
     ]
