@@ -5,13 +5,9 @@ from django.shortcuts import get_object_or_404
 from usuarios.models import Usuario
 from .models import Seguidores
 from .serializers import SeguidoresSerializer
-from django.forms.models import model_to_dict
 
 
-import json
 # Create your views here.
-
-
 class SeguidoresView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -22,7 +18,7 @@ class SeguidoresView(APIView):
 
         seguindo = get_object_or_404(Usuario, id=pk)
         Seguidores.objects.create(seguindo=seguindo, seguidor=request.user)
-        return Response({"message": "Successfully followed user"}, 200)
+        return Response({"message": "Successfully followed user"}, 201)
     
     def get(self, request: Request):
         seguidores = Seguidores.objects.filter(seguindo=request.user)

@@ -1,0 +1,35 @@
+from rest_framework.views import APIView, Request, Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from usuarios.models import Usuario
+from .models import Amizades
+from .serializers import AmizadesSerializer
+
+# Create your views here.
+class AmizadesView(APIView):
+    authentication_classes= [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request: Request, pk:int):
+        if request.user.id == pk:
+            return Response({"message": "Not permission"})
+        
+        friend = get_object_or_404(Usuario, id=pk)
+        Amizades.objects.create(pendent_friend=friend, friend=None, user=request.user)
+        return Response({"message": "Friendship invitation sent successfully"}, 201)
+
+    def patch(self, request: Request, pk:int):
+        solicitacao: Amizades = get_object_or_404(Amizades, id=pk)
+        aceitante = request.user
+        solicitacao.friend = aceitante
+        solicitacao.pendent_friend = None
+        solicitacao.save()
+
+        return Response({"message": "friend request accepted"})
+    
+    def get(self, request: Request):
+        solicitacoes = Amizades.objects.filter(pendent_friend=request.user)
+        seriazer = AmizadesSerializer(solicitacoes, many=True)
+
+        return Response(seriazer.data)
