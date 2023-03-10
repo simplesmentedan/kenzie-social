@@ -13,6 +13,10 @@ class SeguidoresView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    queryset = Seguidores.objects.all()
+    serializer_class = SeguidoresSerializer
+   
+
     def post(self, request: Request, pk:int):
         if request.user.id == pk:  
             return Response({"message": "can't follow yourself"}, 403)
