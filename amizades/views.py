@@ -5,9 +5,10 @@ from django.shortcuts import get_object_or_404
 from usuarios.models import Usuario
 from .models import Amizades
 from .serializers import AmizadesSerializer
+from rest_framework import generics
 
 # Create your views here.
-class AmizadesView(APIView):
+class AmizadesView(generics.GenericAPIView):
     authentication_classes= [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
@@ -30,6 +31,6 @@ class AmizadesView(APIView):
     
     def get(self, request: Request):
         solicitacoes = Amizades.objects.filter(pendent_friend=request.user)
-        seriazer = AmizadesSerializer(solicitacoes, many=True)
+        serializer = AmizadesSerializer(solicitacoes, many=True)
 
-        return Response(seriazer.data)
+        return Response(serializer.data)
