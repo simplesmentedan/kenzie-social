@@ -46,6 +46,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MY_APPS = [
@@ -127,6 +128,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -151,3 +156,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "usuarios.Usuario"
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Kenzie Social',
+    'DESCRIPTION': 'Um projeto feito para ser uma rede social.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}

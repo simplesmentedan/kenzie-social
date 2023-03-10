@@ -11,6 +11,10 @@ from rest_framework import generics
 class AmizadesView(generics.GenericAPIView):
     authentication_classes= [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
+    queryset = Amizades.objects.all()
+    serializer_class = AmizadesSerializer
+    
     
     def post(self, request: Request, pk:int):
         if request.user.id == pk:
