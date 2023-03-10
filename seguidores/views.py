@@ -1,6 +1,7 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView, Response, Request
+from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from usuarios.models import Usuario
 from .models import Seguidores
@@ -8,7 +9,7 @@ from .serializers import SeguidoresSerializer
 
 
 # Create your views here.
-class SeguidoresView(APIView):
+class SeguidoresView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
