@@ -41,7 +41,7 @@
 🚀 ## Executando o projeto
 ### 1 Faça o clone do repositório
 ````shelll
-git clone git@github.com:Kenzie-Social/kenzie-social.git
+git clone git@github.com:simplesmentedan/kenzie-social.git
 ````
 
 ### 2 Crie seu ambiente virtual:
